@@ -26,6 +26,35 @@ ls -la
 ls --help
 ```
 
+- To move into a directory, we use cd:
+
+```bash
+cd Desktop
+```
+
+will move into Desktop directory which is in the current directory.
+
+- To run a file, we use:
+
+```bash
+./filename
+```
+
+where dot(.) represents the current file.
+
+- To move to the parent directory
+
+```bash
+cd ..
+```
+
+To move up two levels:
+
+```bash
+cd ../..
+```
+
+
 - To create new file:
 ```bash
 touch <filename_with_extension>
@@ -171,7 +200,7 @@ similar to `PATH = PATH + extraPATH`
 
 ## File Editing:
 
--Edit a file:
+- Edit a file:
 
 ```bash
 echo this is my file > test.txt
@@ -198,6 +227,134 @@ nano <filename>
 vi <filename>
 ```
 
+## Pseudo File systems on UNIX
+
+`/dev/` stores devices on the system. To access them, we use this folder to access various devices.
+
+`/proc` file system is the processes running on the system. It represents separate folder for each process ids.
+
+init has process id
+
+`/sys` directory offers lots of settings for the OS.
+
+- Which programs and where they are stored?
+
+```bash
+which ruby
+```
+
+gives the path where ruby is installed, if installed.
+
+- Finding files
+
+```bash
+sudo find / -name "*logs*" -print
+```
+
+will return number of files that include logs word under the home (/) directory.
+
+Look for help `find --help```.
+
+- Redirection
+
+You can redirect any output to anywhere. For example to redirect the output of a command, you can use '>'.
+
+```bash
+ls > ls.txt
+```
+
+would create new file `ls.txt` with the result of `ls` command on the current directory.
+
+To append the results, we can use `>>`. If file doesn't exist, it will create file.
+
+- To redirect the output of errors we can use:
+```bash
+command <output-stream> <filename>
+```
+
+```bash
+find / -name hi -print 2> errors.txt
+```
+
+would move all the stderr results to errors.txt and would display correct results on the console. Here, 2> means redirect the error stream only to errors.txt
+
+
+We can send the useless output to the `/dev/null`. It will never be visible or used.
+
+
+To access files in the current directory, we use (.).
+
+### Symbolic links:
+
+Symbolic links are kind of new name for the same reference. For example, if you want to access deep file, you can create a simple linke pointing to that file or folder.
+
+- To create Symbolic link
+
+```bash
+ln <source> <symbolic-name>
+```
+
+```bash
+ln errors.txt errors
+```
+
+```bash
+ls -la errors
+```
+
+would show 2 in the second column indicating that there are two references.
+
+- To remove link
+
+```bash
+rm errors
+```
+
+Now `ls -la errors.txt` would show only 1 in second column. These are hard links.
+
+To access deep folders, we can create links.
+To create symbolic link we use `-s` flag.
+
+
+```bash
+ln -s /Desktop/programs/linux linux
+```
+
+Now, to access linux folder located inside programs folder, I can use `cd linux` which will take me to the same location directly.
+
+
+### Compressions:
+
+
+- You can zip using:
+
+```bash
+zip myzip.zip *.txt
+```
+
+- To unzip the files:
+
+```bash
+unzip myzip.zip
+```
+
+**Tar: Tape archieve** Bundling lots of files into a single file.
+
+```bash
+tar cf mytar.tar [files]
+```
+
+- To add compression, we use `z` and `v` for verbose
+
+```bash
+tar cfzv mytar.tar.gz *.txt
+```
+
+- To extract files, use `x` for extract, `f` as using filename, `z` as we have zip file.
+
+```bash
+tar xfzv mytar.tar.gz
+```
 
 
 
