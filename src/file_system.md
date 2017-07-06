@@ -223,6 +223,7 @@ nano <filename>
 ```
 
 - Open file in vi Editor:
+
 ```bash
 vi <filename>
 ```
@@ -269,7 +270,7 @@ To append the results, we can use `>>`. If file doesn't exist, it will create fi
 
 - To redirect the output of errors we can use:
 ```bash
-command <output-stream> <filename>
+<command> <output-stream> <filename>
 ```
 
 ```bash

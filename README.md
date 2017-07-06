@@ -2,7 +2,7 @@
 
 
 Linux is based on UNIX operating system.
-Linux is open 
+Linux is open
 This repo introduces basic Linux command options for working with Ubuntu Linux.
 
 Linux uses Bash (Bourne again shell)
@@ -22,3 +22,5 @@ Bash allows to do some things in automatic fashion.
 1. [Getting Help](src/getting_help.md)
 
 2. [File Systems](src/file_system.md)
+
+3. [System Management](src/system_management.md)
