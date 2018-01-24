@@ -17,6 +17,8 @@ will get the value of $SHELL variable.
 
 Bash allows to do some things in automatic fashion.
 
+If we want to see the commands starting from `cd`, we can type `cd` and `Tab Tab`.
+
 ## Table of Content:
 
 1. [Getting Help](src/getting_help.md)
@@ -26,3 +28,5 @@ Bash allows to do some things in automatic fashion.
 3. [System Management](src/system_management.md)
 
 4. [Networking](src/networking.md)
+
+5. [Disk Management](src/disk_management.md)
