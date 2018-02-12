@@ -174,10 +174,10 @@ sdiff file1 file2 # line by line comparison
 
 * Pipes are used to pass the output to the next command
 
-````bash
+```bash
 cat <filename> | head -n 5
 grep "[aeiou$]" <filename> | wc -l # number of occurences of aeiou
-
+```
 
 You can see that you can do lots of stuff. You can sort files by word and time. You can print the files using human readable format
 
@@ -203,7 +203,7 @@ They are shown by rwx in representation.
 
 ```bash
 chmod 744 <filename>
-````
+```
 
 7 means 111 : rwx
 4 means 100 : r--

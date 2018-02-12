@@ -1,6 +1,5 @@
 # Ubuntu Linux
 
-
 Linux is based on UNIX operating system.
 Linux is open
 This repo introduces basic Linux command options for working with Ubuntu Linux.
@@ -9,6 +8,7 @@ Linux uses Bash (Bourne again shell)
 One of the original shell was bourne shell with UNIX systems.
 
 Bash is also a programming language.
+
 ```bash
 echo $SHELL
 ```
@@ -30,3 +30,5 @@ If we want to see the commands starting from `cd`, we can type `cd` and `Tab Tab
 4. [Networking](src/networking.md)
 
 5. [Disk Management](src/disk_management.md)
+
+6. [Bash Programming](src/bash_programming.md)
