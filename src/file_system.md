@@ -241,7 +241,7 @@ ls -la test.txt
 chmod a-x test.txt
 chmod o+w test.txt
 ls -la test.txt
-chmod o-w test.txt
+chmod o-w test.txt # remove permission from all to write
 ```
 
 * Print working directory
