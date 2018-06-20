@@ -188,3 +188,81 @@ source ~/Downloads/addseq.sh
 source ~/.bash_profile
 addseq 9 87
 ```
+
+**Variables in Shell**
+
+```shell
+#!/bin/sh
+echo "I was called with $# parameters"
+echo "My name is $0"
+echo "My first parameter is $1"
+echo "My second parameter is $2"
+echo "All parameters are $@"
+echo "Last command exit status: $?"
+
+while [ "$#" -gt "0" ]
+do 
+	echo "\$1 is $1"
+	shift # shifts the value one by one
+done
+```
+
+
+```shell
+# var5.sh
+# Get the exit value of the last command whether the last command was successful or not.
+/usr/local/bin/my-command
+# $? is used for this. If successful it will have 0 value or else something else
+if [ "$?" -ne "0" ]; then
+	echo "Sorry, we had a problem there!"
+fi
+echo "\$! is $!"  # $! contains the process identifier PID of the last run background process
+echo "\$$ is $$" # $$ is the PID of currently running shell.
+```
+
+```shell
+#!/bin/sh
+# change internal field separator
+# IFS is internal field separator
+old_IFS="$IFS"
+IFS=:
+echo "Please, input some data separated by colons"
+read x y z
+IFS=$old_IFS
+echo "x is $x, y is $y and z is $z"
+```
+
+```shell
+while:
+do
+	echo "Please type something in (^C to quit):"
+	read INPUT_STRING
+	echo "You typed $INPUT_STRING"
+done
+
+# for loop
+for i in hello 1 * 2 goodbye
+do 
+	echo "Looping ... i is set to $i"
+done
+
+# case statementsls
+echo "Please talk to me..."
+while:
+do
+	read INPUT_STRING
+	case $INPUT_STRING in
+		hello)
+			echo "Hello there!"
+			;;
+		bye)
+			echo "See you again!"
+			break
+			;;
+		*)
+			echo "Sorry, I don't understand"
+			;;
+	esac
+done
+```
+
