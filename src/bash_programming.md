@@ -266,3 +266,14 @@ do
 done
 ```
 
+**Testing if a command ran successfully**
+
+```shell
+if command; then
+	echo "$command ran successfully now doing this.."
+else
+	echo "$command failed and now running that..."
+fi
+# $? can be used to test if the exit status is 0 or 1 (error)
+```
+
