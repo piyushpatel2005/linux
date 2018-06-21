@@ -55,4 +55,48 @@ sysctl -p # reloads the `sysctl.conf` options.
 vi /etc/sysctl.conf
 net.ipv4.icmp_echo_ignore_all=1 # ignore ipv4 requests
 sysctl -p # now ping will not work for this machine.
-To revert, set it to 0 again.
+# To revert, set it to 0 again.
+```
+
+## Package Manager
+
+Linux uses Package manager softwares for installation of different software versions.
+Package managers allow packages to be downloaded with their dependencies. In Linux, developers create bundle of softwares that can be installed with package mangager.
+RPM = Redhat package manager
+
+Tar files allow us to build from source files.
+
+`ssh user@ip_address` is used to connect to given machine using given username with SSH protocol.
+
+RPM is free and released under GPL. It keeps the information of all the installed packages under `/var/lib/rpm` database. RPM deals with `.rpm` files which contains the actual information about the packages to be installed along with versions. We get packages from yum repos. Apart from that we can also find online libraries like:
+
+[http://rpmfind.net](http://rpmfind.net)
+[http://www.redhat.com](http://www.redhat.com)
+[http://freshrpms.net](http://freshrpms.net)
+[http://rpm.pbone.net](http://rpm.pbone.net)
+
+
+
+```shell
+man rpm
+cat /etc/redhat-release
+uname -a # parameters of the kernel
+wget http://download-link.com/download.file # download the file from web
+# Install rpm package
+# i = install, v = verbose, h = hash checking and progress view
+rpm -ivh some-package.rpm
+
+# remove rpm package
+rpm -e some-package # erase package
+rpm -qa # list rpms that are present in a system, q = query, a = all
+rpm -qa > rpms-list.txt # redirect the list of rpms to a file, create a file
+rpm -ql somepackage # query list the files related to this package has been installed.
+rpm -qpA somepackage.rpm # show libraries that this rpm uses to extract or install
+rpm -Uvh some-package.rpm # upgrade this package
+
+# yum manages the dependencies and installs required dependencies for a given package.
+yum install httpd # yellowdog updater modified
+yum remove httpd # uninstall a package (httpd)
+netstat -tpnl # netstat shows the port and address where our machine is listening
+yum whatprovides netstat # what package provides given command
+```
