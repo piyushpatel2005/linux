@@ -100,3 +100,98 @@ yum remove httpd # uninstall a package (httpd)
 netstat -tpnl # netstat shows the port and address where our machine is listening
 yum whatprovides netstat # what package provides given command
 ```
+
+**IO Redirection for error logging**
+
+We can redirect the output using redirection operator.
+
+```shell
+1 - standard output
+2 - standard error stream
+
+ls nosuchdir 2>&1 # redirect the output of error stream to stdout
+ls nosuchdir 2>filename.txt # output the error to given filename
+ls nosuchdir 2>>filename.txt # redirect and append the error to filename
+0< FILENAME # accept input from the FILENAME
+```
+
+## System Services
+
+OS comprises set of services that are started when kernel loads. These services run in the background to keep the OS up and alive. Process is a program that has been loaded  long-term storage device, usually a HDD into System RAM and is currently being processed by the CPU on motherboard.There are various types of processes. *User process* is a process created by users.
+
+`ps aux` gives the output of various processes running. It lists user, PID, command, CPU, memory, etc. When user executes a command, it creates a process in the background. For example, running `ping` creates a separate process. Use `ps aux | grep ping` to get ping process information.
+
+*System Process* are processes that run as daemon. Every service running in a server run daemon in the background. These are not invoked by the user but run in the background. 
+
+```shell
+yum install httpd
+systemctl start httpd # start httpd daemon
+systemctl status httpd # show the status of httpd daemon
+systemctl list-unit-files # list all system services
+systemctl list-unit-files | grep disabled
+systemctl enable <process_name> # enable a process
+systemctl disable httpd # disable and run only when invoked manually
+systemctl stop httpd # stop the service
+systemctl restart httpd # restart the service
+systemctl --failed # show the failed services
+
+ps aux | grep httpd # there might be many processes running which might be child processes for apache daemon
+
+top # shows the linux processes. It provides real time view of the running system.
+# We can see a lot of details about the processes. Zombie processes are the processes where the parent process has died but they haven't sent the shutdown signal to child processes.
+# Swap is the memory which is used when we are low on memory. It uses these harddisk memory.
+```
+
+PID - Process ID
+USER - name of the user that owns the process
+PR - priority assigned to the user. This can be used to allocate priority in case of memory crunch situations
+NI - Nice value of the process. It is also priority
+VIRT - Virtual memory used by the process, Virtual memory is actually the part of the hard disk.
+RES - The amount of physical RAM the process is using.
+SZ - Size of the process
+WCHAN - the name of the kernel function in which the process is sleeping
+
+```shell
+ps # shows PID, TTY, TIME, CMD
+ps -ef # we get more information
+# STAT includes the state of the proces, D - Uninterruptible sleep, R- running, S - Interruptible sleep, T - Stopped or traced, Z - Zombied
+```
+
+**CRON** is a daemon to execute scheduled tasks. It is automatically started with `/etc/init.d` on entering multi user runlevels.
+*Scheduling of a process* can be done using `cron` command.
+
+Let's create a script.
+
+```shell
+vi test-script.sh
+#!/bin/sh
+echo "Starting script"
+ping -c 2 google.com
+echo script ran at date >> /workspace/test-script.log
+echo "Stopping Script"
+exit
+:wq!
+
+chmod 755 starting.sh
+bash test-script.sh
+
+# To make this script run automatically at a scheduled time, we can use cron command.
+crontab -e # edit the crontab
+```
+
+- Cron job has five columns and each column sets the time of the day.
+From left 1st one is minute (0-59)
+2nd one is Hour (0-23)
+3rd Day of the month (1-31)
+4th Month (1 - 12)
+5th - Day of week (0-6)(sunday=0)
+
+```shell
+crontab -e
+*/1 * * * * /workspace/test-script.sh # run this script every minute, every hour, every hour, every month
+
+crontab -e # run at specific time 00:00AM
+00 00 * * * # run at 00.00AM everyday
+
+00 00 1 4 * # run on every april 1st, every year
+```
