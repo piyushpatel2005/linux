@@ -1,5 +1,7 @@
 # Linux Operating Systems for Hadoop Administration
 
+**NOTE:** This guide uses CentOS operating system. Other linux flavours might have slightly different options.
+
 There are different installation options.
 1. Minimal install - comes with console only
 2. Compute Node - used for installation on cloud
@@ -195,3 +197,32 @@ crontab -e # run at specific time 00:00AM
 
 00 00 1 4 * # run on every april 1st, every year
 ```
+
+## User Management
+
+We can manually add users using `etc/passwd` and `etc/shadow` file.
+Use `useradd` or `adduser` command to create a new user depending on the Linux flavour.
+
+`useradd -g <group> -d <home_directory> -c <comment> -s <shell> login-name`
+
+Use `groupadd` to create a new group
+`groupadd <group_name>`
+`passwd login-name`
+
+In GUI, we can go to `Applications -> Settings -> Users and Groups`
+
+Applications => Settings => User => Unlock => Click + => Enter full Name, Username, Allow user to set a password when they next login
+
+**Using Shell**
+
+```shell
+vi /etc/passwd # lists usernames
+useradd piyush # create user
+passwd piyush # create password for user named piyush
+useradd -h # help with arguments
+useradd -b /home/piyush.patel/ piyush # create user with home directory with different directory than username
+useradd -G manager username # put username to group manager
+vi /etc/passwd 
+# Above file shows details like login name user id(uid), group id(gid), comment, home directory, shell
+vi /etc/shadow # shows login name, encrypted password, date since unix timestamp count the password was changed, date before password may not be changed, etc.
+ssh piyush@<ip_address> # login using ssh with new user
