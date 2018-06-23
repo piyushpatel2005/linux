@@ -3,6 +3,7 @@
 **NOTE:** This guide uses CentOS operating system. Other linux flavours might have slightly different options.
 
 There are different installation options.
+
 1. Minimal install - comes with console only
 2. Compute Node - used for installation on cloud
 3. Infrastructure Server - used to form infrastructure of different servers
@@ -14,8 +15,7 @@ There are different installation options.
 9. KDE Plasma workspaces - similar to last one but only graphics are different
 10. Development and Creative Workstation - used for designers
 
-
-ls - list 
+ls - list
 touch <filename> - create new blank file
 man <command> - see the manual for a given command
 ls -lh - list the file in human readable format.
@@ -28,7 +28,7 @@ Linux Kernel is the core of the OS. It is the main process that talks to the har
 
 Linux boot process involves: power on the SMPS, BIOS (basic input output system) contains information about all hardware components and it fires them up and let the OS know which components are connected. If BIOS fails to load Grub, it would report 'Missing Operating System'
 Load stage 1 Grub from MBR. Linux has bootloader. Before Kernel comes in bootloader talks to hardware. This is also called Grub. It loads from Master boot record, available in first sector of harddisk. It reads partition table, knows the partition.
-It reaches stage 1.5 where it displays menulist - here it lists which OS are available. If something goes wrong, it would not move forward. 
+It reaches stage 1.5 where it displays menulist - here it lists which OS are available. If something goes wrong, it would not move forward.
 
 If everything is fine, then it would list all available OS. (menu.list)
 After this it loads Kernel image and initial RAM disk. If there is something wrong, it would report 'File not found'
@@ -77,8 +77,6 @@ RPM is free and released under GPL. It keeps the information of all the installe
 [http://freshrpms.net](http://freshrpms.net)
 [http://rpm.pbone.net](http://rpm.pbone.net)
 
-
-
 ```shell
 man rpm
 cat /etc/redhat-release
@@ -119,11 +117,11 @@ ls nosuchdir 2>>filename.txt # redirect and append the error to filename
 
 ## System Services
 
-OS comprises set of services that are started when kernel loads. These services run in the background to keep the OS up and alive. Process is a program that has been loaded  long-term storage device, usually a HDD into System RAM and is currently being processed by the CPU on motherboard.There are various types of processes. *User process* is a process created by users.
+OS comprises set of services that are started when kernel loads. These services run in the background to keep the OS up and alive. Process is a program that has been loaded long-term storage device, usually a HDD into System RAM and is currently being processed by the CPU on motherboard.There are various types of processes. _User process_ is a process created by users.
 
 `ps aux` gives the output of various processes running. It lists user, PID, command, CPU, memory, etc. When user executes a command, it creates a process in the background. For example, running `ping` creates a separate process. Use `ps aux | grep ping` to get ping process information.
 
-*System Process* are processes that run as daemon. Every service running in a server run daemon in the background. These are not invoked by the user but run in the background. 
+_System Process_ are processes that run as daemon. Every service running in a server run daemon in the background. These are not invoked by the user but run in the background.
 
 ```shell
 yum install httpd
@@ -160,7 +158,7 @@ ps -ef # we get more information
 ```
 
 **CRON** is a daemon to execute scheduled tasks. It is automatically started with `/etc/init.d` on entering multi user runlevels.
-*Scheduling of a process* can be done using `cron` command.
+_Scheduling of a process_ can be done using `cron` command.
 
 Let's create a script.
 
@@ -181,12 +179,12 @@ bash test-script.sh
 crontab -e # edit the crontab
 ```
 
-- Cron job has five columns and each column sets the time of the day.
-From left 1st one is minute (0-59)
-2nd one is Hour (0-23)
-3rd Day of the month (1-31)
-4th Month (1 - 12)
-5th - Day of week (0-6)(sunday=0)
+* Cron job has five columns and each column sets the time of the day.
+  From left 1st one is minute (0-59)
+  2nd one is Hour (0-23)
+  3rd Day of the month (1-31)
+  4th Month (1 - 12)
+  5th - Day of week (0-6)(sunday=0)
 
 ```shell
 crontab -e
@@ -222,7 +220,29 @@ passwd piyush # create password for user named piyush
 useradd -h # help with arguments
 useradd -b /home/piyush.patel/ piyush # create user with home directory with different directory than username
 useradd -G manager username # put username to group manager
-vi /etc/passwd 
-# Above file shows details like login name user id(uid), group id(gid), comment, home directory, shell
+vi /etc/passwd
+# Above file shows details like login name, password, user id(uid), group id(gid), comment, home directory, shell
 vi /etc/shadow # shows login name, encrypted password, date since unix timestamp count the password was changed, date before password may not be changed, etc.
 ssh piyush@<ip_address> # login using ssh with new user
+
+useradd mary
+passwd mary
+# change home directory of user
+usermod -d /home/testnew <test_user>
+
+# change user group
+usermod -G <group> <user>
+
+groupadd <group_name> # create new group
+usermod -g <group> <user> # change primary group of user
+
+usermod -L <username> # lock the user from acessing
+usermod -U <username> # unlock the user
+
+usermod -s /bin/bash <username> # change shell for a given user
+
+userdel <username> # delete a user by username
+
+pgrep -u <username> # grep the process by username
+kill -9 <pid> <pid2> # kill given process ids
+```
