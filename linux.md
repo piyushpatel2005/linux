@@ -303,4 +303,52 @@ fdisk -l # lists devices, HDD available, external devices connected, etc.
 
 ls -l # lists files with access permissions, the first says whether it is directory or file, next three are for user, then group and the next three are for other users.
 # Then it lists username, group
+
+ln /root/file1 /root/file2 # creates hard link to file1, so when file2 is manipulated the same changes are reflected in file1
+
+ln -s /root/file1 /root/file2 # creates a soft link, this creates a shortcut to the file
+```
+
+## Networking in Linux
+
+Every computer has NIC (Network interface card). Each system is configured with an IP address which is unique in that system. TCP/IP allows packet forwarding between two systems. `ifconfig` tells the IP address and MAC address of the system. `netmask` must be same in order for two systems to communicate with each other. It also shows information like bytes transferred and received, etc. `mtu` is maximum transmission unit (maximum data this card can transmit). `loopback address` is the address where we can reach the local system.
+
+If Linux doesn't discover the NIC, you must assign the card type, interrupt and base addess for the card in linux kernel.
+```shell
+ifconfig -a # shows even hidden interfaces
+vi /etc/sysconfig/network-scripts/ifcfg-enp0s3
+netstat # shows the statistics of network ports
+ip ad # shows the ip addresses
+ping <ip_address> # ping IP address; if ttl is 64, it is Linux, 128 Windows server; time is the time it takes for request to reach and return back
+traceroute google.com # how many hops it had to go through to reach google.com
+
+# Automatic IP adderess assignment requires set following setting in `/etc/sysconfig/network-scripts/ifcfg-enp0s3`
+# BOOTPROTO=dhcp
+```
+
+DHCP stands for dynamic host control protocol.
+
+### Connecting two systems in a network
+
+```shell
+sudo gedit /etc/sysconfig/network-scripts/ifcfg-enp0s3 # open in both computers
+sudo su - <username> # change username, switch user
+# Set IP ADDRESS=192.168.0.50 and BOOTPROTO="static", NETMASK=255.255.255.0
+# GATEWAY=192.168.0.254
+DNS_1=8.8.8.8
+
+systemctl restart network
+ifconfig
+# For second computer only change IP address to 192.168.0.10
+ping 192.168.0.50 # should give response
+touch test1.txt
+scp test1.txt user1@192.168.0.50:/home/user1/Desktop/ # copy the file from this computer to another computer using scp
+
+mkdir userdir
+mv *.txt userdir
+scp -r userdir user1@192.168.0.50:/home/user1/Desktop # recursively copy complete directory
+
+# To sync two systems we can use 'rsync'
+rsync -zavr /home/user2/userdir/ root@192.168.0.50:/home/user1/Desktop/userdir/
+ssh user1@192.168.0.50 # login to another computer by remote logging
 ```
