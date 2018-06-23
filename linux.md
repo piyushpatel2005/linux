@@ -246,3 +246,61 @@ userdel <username> # delete a user by username
 pgrep -u <username> # grep the process by username
 kill -9 <pid> <pid2> # kill given process ids
 ```
+
+## File System
+
+In UNIX, everything is file; device drivers, programs, folders, etc. Linux filesystem has different types of partitions.
+
+`df -Th` # see how file system is partitioned
+which ls # shows where the command file is located
+`/bin` contains user binaries
+/sbin`contains system binaries`/etc`- configuration files for packages installed`/dev`- devices logically mapped and defined in this pc`/proc`- process information, contains kernel parameters that change real time`/var`- variable file`/tmp`- to store temporary files`/usr`- user programs`/home`- home directory for the user`/boot`- Boot loader files`/lib`- System libraries`/opt`- Optional add-on Applications`/mnt`- Mount directories`/media`- Removable directories`/srv` - Service data
+
+**Commands**
+
+```shell
+ls # list the files and directories
+ls -l # long listing
+ls -a # all files including hidden files
+pwd # print working directory
+cat filename # shows the file content of the file
+# big files can be opened with less command
+cat filename | less
+tail filename  # shows last 10 lines
+head filename # shows first 10 lines
+tail -n 2 filename # shows last 2 lines
+
+vi filename # create  and open file
+i # enter insert mode in vi
+Esc -> :wq! # save and exit the file
+:w -> # save and continue writing
+Esc -> :q! # exit the file
+:x! -> save and exit
+
+grep -i -R "hi" /dirname/ # find all files containing word hi in a given directory
+
+find / -name passwd # file filenamed 'passwd' in / directory recursively
+
+locate <filename> # shows files which containe the word in name
+
+cp file1 /tmp/file2 # copy file1 content to file2
+mv file1 /tmp/file2 # move the file1 to file2 location
+rm file1 # remove file1
+rm -rf dirname # remove directory forcefully recursively
+
+fdisk -l # shows different devices
+mount /dev/cdrom /media # mount a filesystem
+umount /media # unmount cdrom
+mount <name_of_device> <media_location>
+
+tar czvf etc.tar.gz /etc # tar archive /etc directory to etc.tar.gz
+clear # shortcut Ctrl+L
+
+df # show disk system disk space usage
+df -Th # human readable format
+du -sh /etc/ # disk usage
+fdisk -l # lists devices, HDD available, external devices connected, etc.
+
+ls -l # lists files with access permissions, the first says whether it is directory or file, next three are for user, then group and the next three are for other users.
+# Then it lists username, group
+```
