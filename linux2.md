@@ -38,7 +38,8 @@ echo $? # get the status of last command execution
 | $0 | The name of the script itself which is often used in usage statements |
 | $1 | A positional argument which is the first argument passed to the script |
 | $# | The number of arguments |
-| $* | Refers to all arguments |
+| $* | Refers to all arguments in single string |
+| $@ | Refers to all arguments, similar to $* but elements are in an array |
 
 [Test above arguments](programming/hello2.sh)
 
@@ -149,3 +150,89 @@ Checking numbers is easy with relational operators gt, lt, etc.
 We can also test multiple conditions with && and || operations.
 
 [Checking multiple conditions](programming/multiple_conditions.sh)
+
+There is also else if conditional which uses structure like:
+
+```shell
+if <condition>; then
+  statements;
+elif <condition2>; then
+  statement
+else
+  statement
+fi
+exit 0
+```
+
+Create backup script with option to select the compression level
+
+[Backup files by specifying compression](programming/backup2.sh)
+
+Sometimes, using multiple if statements is not convenient, so shell provides case statements as well. Basic layout is like this.
+
+```shell
+<case expression> in
+  case1)
+    statement1
+    statement2
+  ;;
+  case2)
+    ... ...
+  ;;
+  *)
+    ... ...
+  ;;
+esac
+```
+
+[Case example](programming/case.sh)
+
+We can create a search script using `grep` command to go through text and search required text.
+
+[Search script](programming/search_script.sh)
+
+## Vim Instructions
+
+:x - Write and quit
+vi filename - open the file
+:wq! - write and close
+:q! - close the file
+:r filename = read given file in the opened editor
+
+
+### Create snippets for VS Code
+
+File | Preferences | User Snippets
+Then type Shell
+This opens `shellscript.json` file.
+
+```json
+// sample file
+{
+	// Place your snippets for shellscript here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Print a welcome message": {
+		"prefix":"welcome",
+		"body": [
+      "echo 'Welcome to shell scripting!'"
+      "echo 'This is second message'"
+		],
+		"description": "Print welcome message"
+	}
+}
+```
+
+Now open a new file and type `welcome`. you will see prompt so just press Enter key. It will populate the code you have in your script.
+
+We can also bring color to the terminal for error and message etc.
