@@ -113,6 +113,10 @@ ls nosuchdir 2>&1 # redirect the output of error stream to stdout
 ls nosuchdir 2>filename.txt # output the error to given filename
 ls nosuchdir 2>>filename.txt # redirect and append the error to filename
 0< FILENAME # accept input from the FILENAME
+> file # redirects stdout to file
+1> file # redirects stdout to file
+2> file # redirects stderr to file
+&> file # redirects stdout and stderr to file
 ```
 
 ## System Services

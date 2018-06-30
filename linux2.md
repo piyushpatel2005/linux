@@ -34,11 +34,11 @@ echo $? # get the status of last command execution
 ```
 
 | Argument Identifier | Description |
-|---------------------:|--------------:|
-| $0 |The name of the script itself which is often used in usage statements |
-| $1 |A positional argument which is the first argument passed to the script |
-| $# |The number of arguments |
-| $* |Refers to all arguments |
+|:---------------------:|:--------------:|
+| $0 | The name of the script itself which is often used in usage statements |
+| $1 | A positional argument which is the first argument passed to the script |
+| $# | The number of arguments |
+| $* | Refers to all arguments |
 
 [Test above arguments](programming/hello2.sh)
 
@@ -96,3 +96,56 @@ There are commonly used options.
 [Run MySQL](programming/run_mysql.sh)
 
 [Read files](programming/read_file.sh)
+
+## Decisions in Scripting
+
+Decisions can be routed using && and || operators. The last command execution output can be found in `$?` system variable.
+
+`who | grep 'pi' > /dev/null 2>&1 && write pi < message.txt`. Here `/dev/null` is a null location where anything can be redirected and it will be dicarded. Here we are redirecting error as well as stdout.
+
+We can use shell builtin `test` to test different expressions. 
+
+```shell
+test EXPRESSION
+test ! EXPRESSION # invert the test condition
+test EXPRESSION1 -a EXPRESSION2 # EXPRESSION1 AND EXPRESSION2
+test EXPRESSION1 -o EXPRESSION2 # EXPRESSION1 OR EXPRESSION2
+[ EXPRESSION ] # short hand way to test
+test $USER = root
+[ $USER = root ]
+test ! $USER = root
+[ ! $USER = root ]
+test -n $SSH_TTY # check if string has a value
+[ -n $SSH_TTY ]
+test -z $1 # test if string value is zero
+[ -z $1 ]
+test $# -gt 0 # number of arguments greater than zero
+[ $# -gt 0 ]
+```
+
+eq, lt, gt, etc. operators work on integers only otherwise use the following operators.
+
+[If Conditional](programming/if.sh)
+
+For checking string, we can use different operators. In case we have string with spaces, we must use quotes around it.
+
+```shell
+if [ $string1 = $string2 ]
+if [ $string1 != $string2 ]
+if [ $string1 \< $string2 ]
+if [ $string1 \> $string2 ]
+if [ -n $string ] # if string is longer than zero
+if [ -z $string ] # if string has zero length
+```
+
+[Relational operator](programming/relational.sh)
+
+[Checking files and directories](programming/checking_files.sh)
+
+Checking numbers is easy with relational operators gt, lt, etc.
+
+[Relational operators with numbers](progrmaming/relational2.sh)
+
+We can also test multiple conditions with && and || operations.
+
+[Checking multiple conditions](programming/multiple_conditions.sh)
