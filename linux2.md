@@ -325,4 +325,34 @@ for f in * ; do
 done
 ```
 
-[While loop](programming/while.sh)
+## Functions
+
+To list the functions available in shell environment type `declare -F`.
+
+```shell
+type quote # displays quote code block
+show_system() {
+  echo "The uptime is: "
+  uptime
+  echo
+  echo "CPU Details"
+  lscput
+  echo
+  echo "User list"
+  who
+}
+```
+
+To execute this function, type show_system on shell after copying this function.
+
+[Cleanup file](programming/cleanup.sh)
+
+In shell, variables are accessed from global scope. If want to limit the scope to local block, we can use `local` keyword. We can return a value using `return` keyword from the function.
+
+`tr` can be used to translate, delete characters from stdin.
+
+[Returning values](programming/return.sh)
+
+[Recursive function](programming/recursive.sh)
+
+[Create a menu](programming/menu.sh)
