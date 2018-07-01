@@ -236,3 +236,93 @@ This opens `shellscript.json` file.
 Now open a new file and type `welcome`. you will see prompt so just press Enter key. It will populate the code you have in your script.
 
 We can also bring color to the terminal for error and message etc.
+
+## Test conditions
+
+We can use `test` command to test different scenarios. For example, to test if `/etc/hosts` file exists, we can use 
+`test -e /etc/hosts`
+We can also check if regular file exists with given name.
+`test -f /etc/hosts`
+
+If we want to open a file from script, first test file is regular file, then test read permission. We can add *-a* option to AND multiple conditions. Then use *-r* condition to check that the file is readable.
+`test -f /etc/hosts -a -r /etc/hosts`
+
+Similarly, *-o* to OR a condition.
+As an alternative to `test` command, we can implement the same conditional tests using single square bracket.
+`[ -f /etc/hosts -a -r /etc/hosts ]`
+
+In fact, `[` is actually a command. Type `test [`
+`[ -f $FILE -a -r $FILE ] && cat $FILE`
+
+We can use this file to redirect the localhost to better name similar to websites.
+
+The use `[[` allows us to do more advanced condition testing but it is not available in Bourne shell. `[[` can solve some of the issues associated with white space in single square bracket command. We can include && and || instead of *-a* and *-o* options. It also allows pattern matching and regular expressions.
+`[[ $FILE = *.pl ]] && cp"$FILE" scripts/`
+
+`[[ $FILE =~ \.pl$ ]] && cp "$FILE" scripts/`
+
+`if [[ $REPLY =~ colou?r ]] ; then`
+
+We can also disable case sensitivity allowing COLOR and color by setting a shell option.
+
+`shopt -s nocasematch`.
+This option can be disabled using `shopt -u nocasematch`
+
+With `((`, we can use even advanced features. We can do mathematical calculations inside this.
+`a=(( 2 + 3 ))`
+
+```shell
+COUNT=1
+(( COUNT++ ))
+echo $COUNT
+
+# standard  arithmetic tests
+$(( COUNT > 1 )) && echo "Count is greater than 1"
+```
+
+## Providing default parameters
+
+The shell options can be read with `$-` command.
+`echo "My shell is $0 and the shell options are $-`
+The options are as follows:
+h: short for hashall. allows for programs to be found using PATH parameter
+i: interactive shell
+m: short for monitor. allows the use of bg and fg commands to bring commands in and out of the background
+B: allows the brace expansion. mkdirdir{1,2} will create dir1 and dir2
+H: allows history expansion of running commands and repeat commands from history
+
+We can define default values as show in [Default value](programming/hello4.sh)
+
+## Loops
+
+```shell
+type for
+
+for u in bob joe
+do
+  useradd $u
+  echo '$u:Password1' | chpasswd # pipe the created user to chpasswd
+  passwd -e $u
+done
+```
+
+[for loop](programming/for.sh)
+
+[Iterate over lines of file](programming/iterate_file.sh)
+
+[File and directories](programming/files_directories.sh)
+
+[C style loop](programming/for2.sh)
+
+[Nested loops](programming/nested_for.sh)
+
+In shell scripting also, we have `break` and `continue` statements to control loop flow.
+
+```shell
+for f in * ; do
+  [ -d "$f" ] || continue
+  chmod 3777 "$f"
+done
+```
+
+[While loop](programming/while.sh)
