@@ -356,3 +356,59 @@ In shell, variables are accessed from global scope. If want to limit the scope t
 [Recursive function](programming/recursive.sh)
 
 [Create a menu](programming/menu.sh)
+
+## Stream Editor
+
+The `sed` command is the stream editor(sed) and opens the file line by line to search or edit the file content. This requires less RAM because it takes line by line so less memory required. We can use grep (Global regular expression print) to search globally across all lines in a file and print the result to output.
+
+Find out received packets using `ifconfig eth0 | grep "RX packets"`
+To search in case insensitive manner, provide option *-i* to it. `ifconfig eth0 | grep -i "rx packets"`
+
+[Search if a user exists](programming/user.sh)
+
+We can get number of cpu using *-c* option.
+`grep -c name /proc/cpuinfo`
+
+[Check No. of CPUs](programming/cpu.sh)
+
+```shell
+sed 'p' /etc/passwd # will print the matched pattern. Here nothing is specified so everything will be printed
+sed -n 'p' /etc/passwd # To print only modified lines use -n option
+
+# sed substitute command 
+sed s/pattern/replacement/flags
+# three comon flags for sed substitute
+# p: print the original content
+# g: global replacement for all occurrences
+# w: filename; send results to a file
+sed 's/sed/Linux sed/' myfile.txt # read the file with text replaced
+sed 's/sed/Linux sed/w output.txt' myfile.txt # port the output of the operation using w flag to output.txt file
+sed 's/sed/Linux sed/2' myfile.txt # change only first two occurrences
+
+# If we want to limit our edits to specific line
+sed '2s/old text/new text/' myfile.txt # modify the seocnd line of the file.
+sed '3,5s/old text/new text/' myfile # modify third to fifth lines
+sed '2,4s/old text/new text/' myfile # modify from the second line to end of file
+# Using 2 flag, we can write our edits to a file, but if we need to edit the file itself, we can use -i option.
+sed -i 's/sed/Linux/' myfile.txt
+sed -i.bak 's/sed/Linux/' myfile.txt # this will create backup file after editing with .bak extension
+
+# sed can be used to delete, change ,transform line
+sed '3d' myfile.txt # this will delete third line from file stream output
+sed '3,5d' myfile.txt # this will delete 3 to 5 files from stream output
+sed '4,$d' myfile # delete lines from 4 to the end of file stream output
+sed -i '2d' myfile # this will actually delete the 2nd line from the file
+
+# insert i and append a commands work similarly.
+sed '2i\inserted text' myfile.txt # insert given text 'inserted text' to second line of myfile output stream
+sed '2a\inserted text' myfile # append after the second line
+
+# change command c is used for changing the entire line not just word.
+sed '2c\modified second line' myfile.txt
+
+# transform command is used to transform any letter or number with another.
+sed 'y/abc/ABC/' myfile.txt # this transformation applied to entire stream
+
+# We can also apply multiple sed command by using -e option and separating two commands by semicolon
+sed -e 's/First/Xfirst/; s/Second/Xsecond/' myfile.txt
+```
