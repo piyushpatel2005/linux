@@ -471,3 +471,9 @@ tar cfzv mytar.tar.gz *.txt
 ```bash
 tar xfzv mytar.tar.gz
 ```
+
+* To find difference of two files (get the lines that are available in one file and not in another), use following two commands:
+```shell
+comm -13 <(sort -u file1) <(sort -u file2)
+fgrep -v -f file1 file2
+```
