@@ -32,3 +32,12 @@ If we want to see the commands starting from `cd`, we can type `cd` and `Tab Tab
 5. [Disk Management](src/disk_management.md)
 
 6. [Bash Programming](src/bash_programming.md)
+
+7. [Linux LPIC essentials](linux2.md)
+
+
+
+## [LPIC Exam Certification](lpic/README.md)
+
+
+
