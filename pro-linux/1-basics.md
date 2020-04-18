@@ -221,3 +221,4 @@ On Linux hosts, you can create links to files. Links can be hard links or soft l
 ln /home/piyush/myfile myfile # this creates hard link
 ln -s /home/piyush/myfile myfile # this creates soft link
 ```
+

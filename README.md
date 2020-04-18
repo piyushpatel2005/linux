@@ -35,9 +35,4 @@ If we want to see the commands starting from `cd`, we can type `cd` and `Tab Tab
 
 7. [Linux LPIC essentials](linux2.md)
 
-
-
 ## [LPIC Exam Certification](lpic/README.md)
-
-
-
